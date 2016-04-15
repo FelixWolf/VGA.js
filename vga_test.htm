@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>VGA Renderer test</title>
+        <style>
+        </style>
+        <script src="/js/vga.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                var canvas = document.getElementById("vga");
+                var vga = new VGARenderer(canvas);
+                vga.onload = function(){
+                    vga.setCursor(0,0);
+                    vga.write("test");
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <canvas id="vga"></canvas>
+    </body>
+</html>
