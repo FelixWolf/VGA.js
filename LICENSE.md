@@ -1,3 +1,4 @@
+```
 The MIT License (MIT)
 
 Copyright (c) 2016 Félix Wolf
@@ -21,7 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Special notes:
+
 VGA.font is a bitmap font based on the original IBM VGA font.
 Despite bitmap fonts apparently not being able to be copyrighted according to
 United States of America law, I already had plans to make it public domain.
 Do as you wish with the VGA.font file!
+```
