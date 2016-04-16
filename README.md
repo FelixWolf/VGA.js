@@ -21,8 +21,8 @@ body:
 #API:
 * vga.setCursor(integer x, integer y) - Set position of cursor
 * vga.getCursor() = {"X": x, "Y": y} - Get position of cursor
-* <i>(internal)</i> vga.setChar(string character) - Sets the character to draw
-* <i>(internal)</i> vga.draw(integer x, integer y) - Draws the current character at x, y
+* vga.setChar(string character) - Sets the character to draw
+* vga.draw() - Draws the current character at the cursor
 * vga.write(string text) - Draws text at the cursor's position, accepts \n and \r, wraps around automatically
 * vga.setForegroundColour([r, g, b]) - Sets the foreground colour
 * vga.setForegroundColor([r, g, b]) - Alias for above
@@ -33,9 +33,11 @@ body:
 * vga.getBackgroundColour() - Gets the background colour
 * vga.getBackgroundColor() - Alias for above
 * vga.clear() - Clears the screen
-* vga.clearLine(x) - Clears line x
-* vga.clearRow(y) - Clears row y
+* vga.clearLine(integer x) - Clears line x
+* vga.clearRow(integer y) - Clears row y
 * vga.reset() - Resets all cursor parameters
+* self.prototype.setBitmap(array[16:integer]) - A array of 8-bit integers representing foreground/background
+* self.prototype.push(integer x) - Pushes the screen upwards(or downwards?), forming new lines allowing continuation of text
 
 #Constraints:
 * vga.COLOUR.BLACK
