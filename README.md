@@ -1,5 +1,5 @@
 # VGA.js
-A simple implimentation of VGA terminal graphics in javascript.
+A simple implementation of VGA terminal graphics in javascript.
 
 #Usage:
 ```html
