@@ -19,6 +19,7 @@ body:
 <canvas id="vga"></canvas>
 ```
 #API:
+* vga.onload = function(){} - Called once the canvas has been mounted and the font has been loaded
 * vga.setCursor(integer x, integer y) - Set position of cursor
 * vga.getCursor() = {"X": x, "Y": y} - Get position of cursor
 * vga.setChar(string character) - Sets the character to draw
@@ -36,8 +37,8 @@ body:
 * vga.clearLine(integer x) - Clears line x
 * vga.clearRow(integer y) - Clears row y
 * vga.reset() - Resets all cursor parameters
-* self.prototype.setBitmap(array[16:integer]) - A array of 8-bit integers representing foreground/background
-* self.prototype.push(integer x) - Pushes the screen upwards(or downwards?), forming new lines allowing continuation of text
+* vga.setBitmap(array[16:integer]) - A array of 8-bit integers representing foreground/background
+* vga.push(integer x) - Pushes the screen upwards(or downwards?), forming new lines allowing continuation of text
 
 #Constraints:
 * vga.COLOUR.BLACK
