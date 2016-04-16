@@ -74,6 +74,8 @@ var VGARenderer = (function(){
         this.__LOCAL__.ctx.fill();
         this.__LOCAL__.cursor.image = this.__LOCAL__.ctx.createImageData(8,16);
         this.__LOCAL__.cursor.buffer = this.__LOCAL__.cursor.image.data;
+        this.__LOCAL__.screen = this.__LOCAL__.ctx.createImageData(640,400);
+        this.__LOCAL__.screen_buffer = this.__LOCAL__.screen.data;
         this.__LOCAL__.loaded = function(){
             self.onload();
             self.ready = true;
@@ -125,14 +127,9 @@ var VGARenderer = (function(){
     };
     
     //Cursor draw
-    self.prototype.setChar = function(chr){
-        this.__LOCAL__.cursor.char = chr.charCodeAt(0);
-    };
-    self.prototype.draw = function(){
-        var dat = this.__CONFIG__.font_data[this.__LOCAL__.cursor.char];
+    self.prototype.setBitmap = function(btmp){
         for(var i=0,r=0;i<512;i+=4,r++){
-            //Problematic line
-            if(((128>>(r%8))&dat[Math.floor(r/8)])!=0){
+            if(((128>>(r%8))&btmp[Math.floor(r/8)])!=0){
                 this.__LOCAL__.cursor.buffer[i] = this.__LOCAL__.colour.foreground[0];
                 this.__LOCAL__.cursor.buffer[i+1] = this.__LOCAL__.colour.foreground[1];
                 this.__LOCAL__.cursor.buffer[i+2] = this.__LOCAL__.colour.foreground[2];
@@ -144,21 +141,31 @@ var VGARenderer = (function(){
                 this.__LOCAL__.cursor.buffer[i+3] = 0xFF;
             }
         }
+    };
+    self.prototype.setChar = function(chr){
+        this.__LOCAL__.cursor.char = chr.charCodeAt(0);
+        this.setBitmap(this.__CONFIG__.font_data[this.__LOCAL__.cursor.char]);
+    };
+    self.prototype.draw = function(){
         this.__LOCAL__.ctx.putImageData(this.__LOCAL__.cursor.image, this.__LOCAL__.cursor.x*8-8, this.__LOCAL__.cursor.y*16);   
     };
     self.prototype.write = function(str){
         for(var i=0;i<str.length;i++){
             var tmp = str.charAt(i);
             if(tmp == "\n"){
-                this.__LOCAL__.cursor.y++;
+                if(++this.__LOCAL__.cursor.y>25){
+                    this.push(1);
+                    this.__LOCAL__.cursor.y=24;
+                }
             }else if(tmp == "\r"){
                 this.__LOCAL__.cursor.x=0;
             }else{
                 this.setChar(tmp);
                 if(++this.__LOCAL__.cursor.x>80){
                     this.__LOCAL__.cursor.x=0;
-                    if(++this.__LOCAL__.cursor.x>25){
-                        this.__LOCAL__.cursor.y=25;
+                    if(++this.__LOCAL__.cursor.y>25){
+                        this.push(1);
+                        this.__LOCAL__.cursor.y=24;
                     }
                 }
                 this.draw();
@@ -198,6 +205,26 @@ var VGARenderer = (function(){
         this.__LOCAL__.ctx.rect(0, y*8, 0, 400);
         this.__LOCAL__.ctx.fillStyle = "rgb("+this.__LOCAL__.colour.background.join()+")";
         this.__LOCAL__.ctx.fill();
+    };
+    
+    self.prototype.push = function(y){
+        var screen = this.__LOCAL__.ctx.getImageData(0,0,640,400);
+        var screen_data = screen.data;
+        for(var l=0;l<y;l++){
+            for(var i=0;i<983040;i+=4){
+                screen_data[i]   = screen_data[i+40960];
+                screen_data[i+1] = screen_data[i+40961];
+                screen_data[i+2] = screen_data[i+40962];
+                screen_data[i+3] = screen_data[i+40963];
+            }
+            for(var i=983040;i<1024000;i+=4){
+                screen_data[i]   = screen_data[0];
+                screen_data[i+1] = screen_data[1];
+                screen_data[i+2] = screen_data[2];
+                screen_data[i+3] = 0xff;
+            }
+        }
+        this.__LOCAL__.ctx.putImageData(screen, 0, 0);   
     };
     
     //Reset
