@@ -19,26 +19,26 @@ body:
 <canvas id="vga"></canvas>
 ```
 #API:
-* vga.onload = function(){} - Called once the canvas has been mounted and the font has been loaded
-* vga.setCursor(integer x, integer y) - Set position of cursor
-* vga.getCursor() = {"X": x, "Y": y} - Get position of cursor
-* vga.setChar(string character) - Sets the character to draw
-* vga.draw() - Draws the current character at the cursor
-* vga.write(string text) - Draws text at the cursor's position, accepts \n and \r, wraps around automatically
-* vga.setForegroundColour([r, g, b]) - Sets the foreground colour
-* vga.setForegroundColor([r, g, b]) - Alias for above
-* vga.getForegroundColour() - Gets the foreground colour
-* vga.getForegroundColor() - Alias for above
-* vga.setBackgroundColour([r, g, b]) - Sets the background colour
-* vga.setBackgroundColor([r, g, b]) - Alias for above
-* vga.getBackgroundColour() - Gets the background colour
-* vga.getBackgroundColor() - Alias for above
-* vga.clear() - Clears the screen
-* vga.clearLine(integer x) - Clears line x
-* vga.clearRow(integer y) - Clears row y
-* vga.reset() - Resets all cursor parameters
-* vga.setBitmap(array[16:integer]) - A array of 8-bit integers representing foreground/background
-* vga.push(integer x) - Pushes the screen upwards(or downwards?), forming new lines allowing continuation of text
+* function vga.onload = function(){} - Called once the canvas has been mounted and the font has been loaded
+* void vga.setCursor(integer x, integer y) - Set position of cursor
+* object({"X": x, "Y": y}) vga.getCursor() - Get position of cursor
+* void vga.setChar(string character) - Sets the character to draw
+* void vga.draw() - Draws the current character at the cursor
+* void vga.write(string text) - Draws text at the cursor's position, accepts \n and \r, wraps around automatically
+* void vga.setForegroundColour([r, g, b]) - Sets the foreground colour
+* void vga.setForegroundColor([r, g, b]) - Alias for above
+* array([r, g, b]) vga.getForegroundColour() - Gets the foreground colour
+* array([r, g, b]) vga.getForegroundColor() - Alias for above
+* void vga.setBackgroundColour([r, g, b]) - Sets the background colour
+* void vga.setBackgroundColor([r, g, b]) - Alias for above
+* array([r, g, b]) vga.getBackgroundColour() - Gets the background colour
+* array([r, g, b]) vga.getBackgroundColor() - Alias for above
+* void vga.clear() - Clears the screen
+* void vga.clearLine(integer x) - Clears line x
+* void vga.clearRow(integer y) - Clears row y
+* void vga.reset() - Resets all cursor parameters
+* void vga.setBitmap(array[16:integer]) - A array of 8-bit integers representing foreground/background
+* void vga.push(integer x) - Pushes the screen upwards(or downwards?), forming new lines allowing continuation of text
 
 #Constraints:
 * vga.COLOUR.BLACK
