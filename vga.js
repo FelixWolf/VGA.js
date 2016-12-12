@@ -24,7 +24,7 @@ SOFTWARE.
 var VGARenderer = (function(){
     "use strict";
     var BaseConfig = {
-        "font": ".//VGA.font",
+        "font": "./VGA.font",
         "font_data": []
     };
     //Initialize
